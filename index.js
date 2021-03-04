@@ -23,7 +23,7 @@ exports.handler = (event, context, callback) => {
                 })
             });
         }
-        let field = event.path.includes("durata") ? "duration" : "score"
+        let field = (event.queryStringParameters["scope"] || "") == "durata" ? "duration" : "score"
         let query = `SELECT * FROM leaderboard order by ${field} desc`
         // Use the connection
         connection.query(query, (error, results, fields) => {
